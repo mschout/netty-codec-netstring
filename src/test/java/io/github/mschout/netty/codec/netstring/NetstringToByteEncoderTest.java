@@ -11,14 +11,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
-class NeststringToByteEncoderTest {
+class NetstringToByteEncoderTest {
   private final Charset charset = StandardCharsets.UTF_8;
 
   @Test
   public void encodeNetstring() {
     List<String> testStrings = ImmutableList.of("a", "foo", "netstring,with,commas", "netstring-with\nembedded\nnewlines");
 
-    EmbeddedChannel channel = new EmbeddedChannel(new NeststringToByteEncoder(StandardCharsets.UTF_8));
+    EmbeddedChannel channel = new EmbeddedChannel(new NetstringToByteEncoder(StandardCharsets.UTF_8));
 
     for (String value : testStrings) {
       channel.writeOutbound(value);

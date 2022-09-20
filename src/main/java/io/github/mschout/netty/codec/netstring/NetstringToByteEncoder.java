@@ -8,14 +8,14 @@ import java.nio.charset.Charset;
 /**
  * Byte encoder for netstrings.
  */
-public class NeststringToByteEncoder extends MessageToByteEncoder<String> {
+public class NetstringToByteEncoder extends MessageToByteEncoder<String> {
   private final Charset charset;
 
   /**
    * Constructor
    * @param charset Charset to encode the strings
    */
-  public NeststringToByteEncoder(Charset charset) {
+  public NetstringToByteEncoder(Charset charset) {
     this.charset = charset;
   }
 
