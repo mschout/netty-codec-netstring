@@ -18,7 +18,7 @@ plugins {
   // delombok sources
   id 'io.freefair.lombok' version '6.5.1'
 
-  // publishToSonatype and closeAndReleaseSonatypeStagingRepository tasks
+  id 'com.olafmertens.git-version' version '0.1.1'
   id 'io.github.gradle-nexus.publish-plugin' version '1.1.0'
 }
 
@@ -81,7 +81,6 @@ publishing {
     maven(MavenPublication) {
       groupId    = 'io.github.mschout'
       artifactId = 'netty-codec-netstring'
-      version    = '0.5.0'
 
       from components.java
 
