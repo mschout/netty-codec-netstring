@@ -1,0 +1,12 @@
+[versions]
+lombok = "1.18.46"
+mschout-conventions = "0.6.0"
+netty = "4.1.80.Final"
+
+[libraries]
+netty-codec = { module = "io.netty:netty-codec", version.ref = "netty" }
+
+[plugins]
+freefair-lombok = { id = "io.freefair.lombok", version = "9.5.0" }
+mschout-all-conventions = { id = "io.github.mschout.all-conventions", version.ref = "mschout-conventions" }
+mschout-maven-publish-conventions = { id = "io.github.mschout.maven-publish-conventions", version.ref = "mschout-conventions" }

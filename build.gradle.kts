@@ -6,14 +6,14 @@ plugins {
   // Apply the java-library plugin for API and implementation separation.
   `java-library`
 
-  id("io.github.mschout.all-conventions") version "0.6.0"
-  id("io.github.mschout.maven-publish-conventions") version "0.6.0"
+  alias(libs.plugins.mschout.all.conventions)
+  alias(libs.plugins.mschout.maven.publish.conventions)
 
   // delombok sources
-  id("io.freefair.lombok") version "9.5.0"
+  alias(libs.plugins.freefair.lombok)
 }
 
-lombok { version = "1.18.46" }
+lombok { version = libs.versions.lombok.get() }
 
 group = "io.github.mschout"
 
@@ -29,8 +29,8 @@ repositories {
 }
 
 dependencies {
-  compileOnly("io.netty:netty-codec:4.1.80.Final")
-  testImplementation("io.netty:netty-codec:4.1.80.Final")
+  compileOnly(libs.netty.codec)
+  testImplementation(libs.netty.codec)
 }
 
 tasks.withType<JavaCompile> { options.encoding = "UTF-8" }
