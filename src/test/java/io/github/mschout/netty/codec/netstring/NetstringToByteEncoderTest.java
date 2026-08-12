@@ -2,7 +2,6 @@ package io.github.mschout.netty.codec.netstring;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.google.common.collect.ImmutableList;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.embedded.EmbeddedChannel;
 import java.nio.charset.Charset;
@@ -16,7 +15,7 @@ class NetstringToByteEncoderTest {
 
   @Test
   public void encodeNetstring() {
-    List<String> testStrings = ImmutableList.of("a", "foo", "netstring,with,commas", "netstring-with\nembedded\nnewlines");
+    List<String> testStrings = List.of("a", "foo", "netstring,with,commas", "netstring-with\nembedded\nnewlines");
 
     EmbeddedChannel channel = new EmbeddedChannel(new NetstringToByteEncoder(StandardCharsets.UTF_8));
 

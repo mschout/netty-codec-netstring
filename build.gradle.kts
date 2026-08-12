@@ -28,8 +28,6 @@ repositories {
 }
 
 dependencies {
-  testImplementation("com.google.guava:guava:31.1-jre")
-
   compileOnly("io.netty:netty-codec:4.1.80.Final")
   testImplementation("io.netty:netty-codec:4.1.80.Final")
 }
