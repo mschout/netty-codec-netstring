@@ -4,21 +4,21 @@ plugins {
   `maven-publish`
   signing
 
-  // Format java code with spotless via prettier-java
-  id("com.diffplug.spotless") version "8.9.0"
+  id("io.github.mschout.all-conventions") version "0.6.0"
 
   // delombok sources
   id("io.freefair.lombok") version "9.5.0"
-
-  id("fr.brouillard.oss.gradle.jgitver") version "0.10.0-rc03"
 }
 
-lombok {
-  version = "1.18.46"
-}
+lombok { version = "1.18.46" }
 
 group = "io.github.mschout"
+
 description = "netty-codec-netstring"
+
+val gitVersion = extra["gitVersion"] as groovy.lang.Closure<*>
+
+version = gitVersion.call().toString()
 
 repositories {
   mavenLocal()
@@ -26,37 +26,18 @@ repositories {
 }
 
 java {
-  toolchain {
-    languageVersion = JavaLanguageVersion.of(8)
-  }
-
   withSourcesJar()
   withJavadocJar()
 }
 
 dependencies {
-  // Use JUnit Jupiter for testing.
-  testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
-  testRuntimeOnly("org.junit.platform:junit-platform-launcher")
   testImplementation("com.google.guava:guava:31.1-jre")
 
   compileOnly("io.netty:netty-codec:4.1.80.Final")
   testImplementation("io.netty:netty-codec:4.1.80.Final")
 }
 
-tasks.withType<JavaCompile> {
-  options.encoding = "UTF-8"
-}
-
-tasks.test {
-  // Use JUnit Platform for unit tests.
-  useJUnitPlatform()
-}
-
-jgitver {
-  autoIncrementPatch = false
-  nonQualifierBranches = "main,master"
-}
+tasks.withType<JavaCompile> { options.encoding = "UTF-8" }
 
 signing {
   useGpgCmd()
