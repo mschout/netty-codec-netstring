@@ -2,7 +2,6 @@ package io.github.mschout.netty.codec.netstring;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.embedded.EmbeddedChannel;
 import java.nio.charset.Charset;
@@ -15,11 +14,11 @@ class ByteToNetstringDecoderTest {
 
   @Test
   public void decodeNetstrings() {
-    List<String> testStrings = List.of("a", "foo", "netstring,with,commas", "netstring-with\nembedded\nnewlines");
+    var testStrings = List.of("a", "foo", "netstring,with,commas", "netstring-with\nembedded\nnewlines");
 
-    EmbeddedChannel channel = new EmbeddedChannel(new ByteToNetstringDecoder(1024, charset));
+    var channel = new EmbeddedChannel(new ByteToNetstringDecoder(1024, charset));
 
-    ByteBuf buffer = Unpooled.buffer();
+    var buffer = Unpooled.buffer();
 
     // write the netstrings to the buffer
     testStrings
@@ -27,12 +26,12 @@ class ByteToNetstringDecoderTest {
       .map(i -> String.format("%d:%s,", i.length(), i))
       .forEach(netString -> buffer.writeCharSequence(netString, StandardCharsets.UTF_8));
 
-    ByteBuf input = buffer.duplicate();
+    var input = buffer.duplicate();
 
     channel.writeInbound(input.retain());
 
-    for (String value : testStrings) {
-      String read = channel.readInbound();
+    for (var value : testStrings) {
+      var read = channel.readInbound();
       assertEquals(value, read, "read value " + value);
     }
 

@@ -57,7 +57,7 @@ public class ByteToNetstringDecoder extends ByteToMessageDecoder {
     // we should have the entire payload now
     in.skipBytes(1); // skip the ':'
 
-    String value = in.readCharSequence(dataLength, charset).toString();
+    var value = in.readCharSequence(dataLength, charset).toString();
 
     in.skipBytes(1); // skip the ','
 

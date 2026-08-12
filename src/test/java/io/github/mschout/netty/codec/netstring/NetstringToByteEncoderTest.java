@@ -14,15 +14,15 @@ class NetstringToByteEncoderTest {
 
   @Test
   public void encodeNetstring() {
-    List<String> testStrings = List.of("a", "foo", "netstring,with,commas", "netstring-with\nembedded\nnewlines");
+    var testStrings = List.of("a", "foo", "netstring,with,commas", "netstring-with\nembedded\nnewlines");
 
-    EmbeddedChannel channel = new EmbeddedChannel(new NetstringToByteEncoder(StandardCharsets.UTF_8));
+    var channel = new EmbeddedChannel(new NetstringToByteEncoder(StandardCharsets.UTF_8));
 
-    for (String value : testStrings) {
+    for (var value : testStrings) {
       channel.writeOutbound(value);
     }
 
-    for (String value : testStrings.stream().map(i -> String.format("%d:%s,", i.length(), i)).toList()) {
+    for (var value : testStrings.stream().map(i -> String.format("%d:%s,", i.length(), i)).toList()) {
       ByteBuf actual = channel.readOutbound();
       assertEquals(value, actual.toString(charset), "Encoded value " + value);
     }
