@@ -37,6 +37,7 @@ java {
 dependencies {
   // Use JUnit Jupiter for testing.
   testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
+  testRuntimeOnly("org.junit.platform:junit-platform-launcher")
   testImplementation("com.google.guava:guava:31.1-jre")
 
   compileOnly("io.netty:netty-codec:4.1.80.Final")
