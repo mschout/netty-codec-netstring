@@ -1,7 +1,7 @@
 [versions]
 lombok = "1.18.46"
-mschout-conventions = "0.6.0"
-netty = "4.1.80.Final"
+mschout-conventions = "0.7.0"
+netty = "4.2.17.Final"
 
 [libraries]
 netty-codec = { module = "io.netty:netty-codec", version.ref = "netty" }
