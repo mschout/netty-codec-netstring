@@ -9,7 +9,6 @@ import java.util.List;
 
 /**
  * Netty decoder for netstarings.
- *
  * This decoder receives netstrings such as {@code 3:foo,} and decodes the values to the String value e.g. {@code foo}.
  * @see <a href="http://cr.yp.to/proto/netstrings.txt">Netstring Spec</a>
  */
@@ -30,7 +29,7 @@ public class ByteToNetstringDecoder extends ByteToMessageDecoder {
   }
 
   @Override
-  protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
+  protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) {
     in.markReaderIndex();
 
     int readableBytes = in.readableBytes();

@@ -7,7 +7,6 @@ import io.netty.channel.embedded.EmbeddedChannel;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 class NetstringToByteEncoderTest {
@@ -23,7 +22,7 @@ class NetstringToByteEncoderTest {
       channel.writeOutbound(value);
     }
 
-    for (String value : testStrings.stream().map(i -> String.format("%d:%s,", i.length(), i)).collect(Collectors.toList())) {
+    for (String value : testStrings.stream().map(i -> String.format("%d:%s,", i.length(), i)).toList()) {
       ByteBuf actual = channel.readOutbound();
       assertEquals(value, actual.toString(charset), "Encoded value " + value);
     }

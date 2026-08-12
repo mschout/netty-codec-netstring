@@ -20,7 +20,7 @@ public class NetstringToByteEncoder extends MessageToByteEncoder<String> {
   }
 
   @Override
-  protected void encode(ChannelHandlerContext ctx, String msg, ByteBuf out) throws Exception {
+  protected void encode(ChannelHandlerContext ctx, String msg, ByteBuf out) {
     out.writeBytes(String.format("%d:%s,", msg.length(), msg).getBytes(charset));
   }
 }
