@@ -35,6 +35,14 @@ dependencies {
 
 tasks.withType<JavaCompile> { options.encoding = "UTF-8" }
 
+spotless {
+  java {
+    importOrder()
+    removeUnusedImports()
+    googleJavaFormat()
+  }
+}
+
 mavenPublishing {
   configure(JavaLibrary(javadocJar = JavadocJar.Javadoc(), sourcesJar = SourcesJar.Sources()))
 

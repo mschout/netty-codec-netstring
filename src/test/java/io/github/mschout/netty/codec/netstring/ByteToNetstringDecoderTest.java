@@ -14,17 +14,17 @@ class ByteToNetstringDecoderTest {
 
   @Test
   public void decodeNetstrings() {
-    var testStrings = List.of("a", "foo", "netstring,with,commas", "netstring-with\nembedded\nnewlines");
+    var testStrings =
+        List.of("a", "foo", "netstring,with,commas", "netstring-with\nembedded\nnewlines");
 
     var channel = new EmbeddedChannel(new ByteToNetstringDecoder(1024, charset));
 
     var buffer = Unpooled.buffer();
 
     // write the netstrings to the buffer
-    testStrings
-      .stream()
-      .map(i -> String.format("%d:%s,", i.length(), i))
-      .forEach(netString -> buffer.writeCharSequence(netString, StandardCharsets.UTF_8));
+    testStrings.stream()
+        .map(i -> String.format("%d:%s,", i.length(), i))
+        .forEach(netString -> buffer.writeCharSequence(netString, StandardCharsets.UTF_8));
 
     var input = buffer.duplicate();
 

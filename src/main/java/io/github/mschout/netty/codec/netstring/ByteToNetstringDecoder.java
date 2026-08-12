@@ -8,8 +8,9 @@ import java.nio.charset.Charset;
 import java.util.List;
 
 /**
- * Netty decoder for netstarings.
- * This decoder receives netstrings such as {@code 3:foo,} and decodes the values to the String value e.g. {@code foo}.
+ * Netty decoder for netstarings. This decoder receives netstrings such as {@code 3:foo,} and
+ * decodes the values to the String value e.g. {@code foo}.
+ *
  * @see <a href="http://cr.yp.to/proto/netstrings.txt">Netstring Spec</a>
  */
 public class ByteToNetstringDecoder extends ByteToMessageDecoder {
@@ -19,8 +20,9 @@ public class ByteToNetstringDecoder extends ByteToMessageDecoder {
 
   /**
    * Constructor
-   * @param maxLength Maximum allowed netstring length.  If a netstring is received with length field longer than
-   *                  this, then {@link TooLongFrameException} will be thrown.
+   *
+   * @param maxLength Maximum allowed netstring length. If a netstring is received with length field
+   *     longer than this, then {@link TooLongFrameException} will be thrown.
    * @param charset The charset for the received netstrings
    */
   public ByteToNetstringDecoder(int maxLength, Charset charset) {
@@ -34,7 +36,8 @@ public class ByteToNetstringDecoder extends ByteToMessageDecoder {
 
     int readableBytes = in.readableBytes();
 
-    if (readableBytes > maxLength) throw new TooLongFrameException("Frame too big " + readableBytes + " > " + maxLength);
+    if (readableBytes > maxLength)
+      throw new TooLongFrameException("Frame too big " + readableBytes + " > " + maxLength);
 
     // Minimum netstring must be at least 3 chars long: "0:,"
     if (readableBytes < 3) return;
@@ -47,7 +50,8 @@ public class ByteToNetstringDecoder extends ByteToMessageDecoder {
     final int dataLength = readLength(in, sizeLength);
     // NOTE: if we bail out early from here on out, we must call .resetReaderIndex()
 
-    if (dataLength > maxLength) throw new TooLongFrameException("Frame too big " + dataLength + " > " + maxLength);
+    if (dataLength > maxLength)
+      throw new TooLongFrameException("Frame too big " + dataLength + " > " + maxLength);
 
     if (readableBytes < dataLength + 2) { // ":" plus netstring value plus ","
       in.resetReaderIndex();

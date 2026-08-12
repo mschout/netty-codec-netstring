@@ -14,7 +14,8 @@ class NetstringToByteEncoderTest {
 
   @Test
   public void encodeNetstring() {
-    var testStrings = List.of("a", "foo", "netstring,with,commas", "netstring-with\nembedded\nnewlines");
+    var testStrings =
+        List.of("a", "foo", "netstring,with,commas", "netstring-with\nembedded\nnewlines");
 
     var channel = new EmbeddedChannel(new NetstringToByteEncoder(StandardCharsets.UTF_8));
 
@@ -22,7 +23,8 @@ class NetstringToByteEncoderTest {
       channel.writeOutbound(value);
     }
 
-    for (var value : testStrings.stream().map(i -> String.format("%d:%s,", i.length(), i)).toList()) {
+    var values = testStrings.stream().map(i -> String.format("%d:%s,", i.length(), i)).toList();
+    for (var value : values) {
       ByteBuf actual = channel.readOutbound();
       assertEquals(value, actual.toString(charset), "Encoded value " + value);
     }
