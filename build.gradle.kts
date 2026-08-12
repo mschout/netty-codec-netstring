@@ -1,5 +1,6 @@
 import com.vanniktech.maven.publish.JavaLibrary
 import com.vanniktech.maven.publish.JavadocJar
+import com.vanniktech.maven.publish.SourcesJar
 
 plugins {
   // Apply the java-library plugin for API and implementation separation.
@@ -35,7 +36,7 @@ dependencies {
 tasks.withType<JavaCompile> { options.encoding = "UTF-8" }
 
 mavenPublishing {
-  configure(JavaLibrary(javadocJar = JavadocJar.Javadoc(), sourcesJar = true))
+  configure(JavaLibrary(javadocJar = JavadocJar.Javadoc(), sourcesJar = SourcesJar.Sources()))
 
   publishToMavenCentral()
 
