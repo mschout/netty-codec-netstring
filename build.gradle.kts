@@ -1,10 +1,12 @@
+import com.vanniktech.maven.publish.JavaLibrary
+import com.vanniktech.maven.publish.JavadocJar
+
 plugins {
   // Apply the java-library plugin for API and implementation separation.
   `java-library`
-  `maven-publish`
-  signing
 
   id("io.github.mschout.all-conventions") version "0.6.0"
+  id("io.github.mschout.maven-publish-conventions") version "0.6.0"
 
   // delombok sources
   id("io.freefair.lombok") version "9.5.0"
@@ -25,11 +27,6 @@ repositories {
   mavenCentral()
 }
 
-java {
-  withSourcesJar()
-  withJavadocJar()
-}
-
 dependencies {
   testImplementation("com.google.guava:guava:31.1-jre")
 
@@ -39,53 +36,39 @@ dependencies {
 
 tasks.withType<JavaCompile> { options.encoding = "UTF-8" }
 
-signing {
-  useGpgCmd()
-  sign(publishing.publications)
-}
+mavenPublishing {
+  configure(JavaLibrary(javadocJar = JavadocJar.Javadoc(), sourcesJar = true))
 
-publishing {
-  publications {
-    create<MavenPublication>("maven") {
-      groupId = "io.github.mschout"
-      artifactId = "netty-codec-netstring"
+  publishToMavenCentral()
 
-      from(components["java"])
+  signAllPublications()
 
-      pom {
-        name = "${groupId}:${artifactId}"
-        description = "Interface to Email Sender Rewriting Scheme for Java"
-        url = "https://github.com/mschout/netty-codec-netstring"
-        licenses {
-          license {
-            name = "The Apache License, Version 2.0"
-            url = "https://www.apache.org/licenses/LICENSE-2.0.txt"
-          }
-        }
-        developers {
-          developer {
-            name = "Michael Schout"
-            email = "schoutm@gmail.com"
-            organizationUrl = "https://github.com/mscnout"
-          }
-        }
-        scm {
-          connection = "scm:git:git://github.com/mschout/netty-codec-netstring.git"
-          developerConnection = "scm:git:ssh://github.com:mschout/netty-codec-netstring.git"
-          url = "https://github.com/mschout/netty-codec-netstring/tree/master"
-        }
+  coordinates(group.toString(), "netty-codec-netstring", version.toString())
+
+  pom {
+    name.set("netty-codec-netstring")
+    description.set("Netstring encoder/decoder for Netty")
+    url.set("https://github.com/mschout/netty-codec-netstring")
+
+    licenses {
+      license {
+        name.set("The Apache License, Version 2.0")
+        url.set("https://www.apache.org/licenses/LICENSE-2.0.txt")
       }
+    }
+
+    developers {
+      developer {
+        id.set("mschout")
+        name.set("Michael Schout")
+        url.set("https://github.com/mschout")
+      }
+    }
+
+    scm {
+      url.set("https://github.com/mschout/netty-codec-netstring")
+      connection.set("scm:git:git://github.com/mschout/netty-codec-netstring.git")
+      developerConnection.set("scm:git:ssh://git@github.com/mschout/netty-codec-netstring.git")
     }
   }
 }
-
-// nexusPublishing {
-//   repositories {
-//     sonatype {
-//       nexusUrl = uri("https://s01.oss.sonatype.org/service/local/")
-//       snapshotRepositoryUrl = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
-//       username = System.getenv("OSSRH_USERNAME") ?: "credentials"
-//       password = System.getenv("OSSRH_PASSWORD") ?: "credentials"
-//     }
-//   }
-// }
